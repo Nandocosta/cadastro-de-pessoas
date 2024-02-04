@@ -31,4 +31,22 @@ object ViewPrincipal: TViewPrincipal
     TabOrder = 1
     OnClick = Button2Click
   end
+  object Button3: TButton
+    Left = 40
+    Top = 120
+    Width = 81
+    Height = 25
+    Caption = 'Excluir por id'
+    TabOrder = 2
+    OnClick = Button3Click
+  end
+  object Button4: TButton
+    Left = 40
+    Top = 160
+    Width = 249
+    Height = 25
+    Caption = 'Carregar(bancod de dados >> memoria)'
+    TabOrder = 3
+    OnClick = Button4Click
+  end
 end

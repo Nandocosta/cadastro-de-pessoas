@@ -2,8 +2,10 @@ unit Model.Pessoa;
 
 interface
 uses
-  Model.Pessoa.Interfaces, System.Generics.Collections,
-  Repository.Pessoa.Interfaces;
+  Model.Pessoa.Interfaces,
+  System.Generics.Collections,
+  Repository.Pessoa.Interfaces,
+  Dto.Pessoa;
 
 type
   TPessoaModel = class(TInterfacedObject, IPessoaModel)
@@ -23,20 +25,18 @@ type
     function DataNascimento(ADataNascimento: TDateTime): IPessoaModel;
     function SaldoDevedor(ASaldoDevedor: Double): IPessoaModel;
     procedure SetRespositoryPessoa(ARepositoryPessoa: IRepositoryPessoa);
+    procedure ExcluirPorId(AId: Integer);
 
     procedure GravarEmMemoria;
     procedure GravarNoBanco;
     procedure GravarListaNoBanco;
+    Function GetPessoas: TObjectList<TPessoaDto>;
   end;
 
 
 implementation
 
 { TPessoa }
-
-uses Dto.Pessoa;
-
-
 
 { TPessoa }
 
@@ -46,6 +46,11 @@ function TPessoaModel.DataNascimento(ADataNascimento: TDateTime): IPessoaModel;
 begin
   Result := self;
   FDataNascimento := ADataNascimento;
+end;
+
+procedure TPessoaModel.ExcluirPorId(AId: Integer);
+begin
+  FRepositoryPessoa.ExcluirPorId(AId);
 end;
 
 class function TPessoaModel.GetListaPessoa: TObjectList<TPessoaModel>;
@@ -89,6 +94,11 @@ function TPessoaModel.Id(AId: Integer): IPessoaModel;
 begin
   Result := self;
   FId := AId;
+end;
+
+function TPessoaModel.GetPessoas: TObjectList<TPessoaDto>;
+begin
+  Result := FRepositoryPessoa.GetPessoas;
 end;
 
 class function TPessoaModel.New(ARepositoryPessoa: IRepositoryPessoa): IPessoaModel;
