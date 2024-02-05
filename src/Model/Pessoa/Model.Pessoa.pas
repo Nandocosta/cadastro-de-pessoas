@@ -30,7 +30,9 @@ type
     procedure GravarEmMemoria;
     procedure GravarNoBanco;
     procedure GravarListaNoBanco;
-    Function GetPessoas: TObjectList<TPessoaDto>;
+    function GetPessoas: TObjectList<TPessoaDto>;
+    function GetDadosPessoa: TPessoaDto;
+
   end;
 
 
@@ -51,6 +53,15 @@ end;
 procedure TPessoaModel.ExcluirPorId(AId: Integer);
 begin
   FRepositoryPessoa.ExcluirPorId(AId);
+end;
+
+function TPessoaModel.GetDadosPessoa: TPessoaDto;
+begin
+  Result := TPessoaDto.Create;
+  Result.Id := FId;
+  Result.Nome := FNome;
+  Result.DataNascimento := FDataNascimento;
+  Result.SaldoDevedor := FSaldoDevedor;
 end;
 
 class function TPessoaModel.GetListaPessoa: TObjectList<TPessoaModel>;

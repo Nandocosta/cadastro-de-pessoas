@@ -53,6 +53,7 @@ begin
     while not Query.Eof do
     begin
       PessoaDto := TPessoaDto.Create;
+      PessoaDto.Id := Query.FieldByName('ID').AsInteger;
       PessoaDto.Nome := Query.FieldByName('NOME').AsString;
       PessoaDto.DataNascimento := Query.FieldByName('DATA_NASCIMENTO').AsDateTime;
       PessoaDto.SaldoDevedor := Query.FieldByName('SALDO_DEVEDOR').AsFloat;

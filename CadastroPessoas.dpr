@@ -9,7 +9,8 @@ uses
   Controller.Pessoa in 'src\Controller\Pessoa\Controller.Pessoa.pas',
   Repository.Pessoa.Interfaces in 'src\Repository\Pessoa\Repository.Pessoa.Interfaces.pas',
   Repository.Pessoa.SqLite in 'src\Repository\Pessoa\Repository.Pessoa.SqLite.pas',
-  Database.Conexao in 'src\Database\Database.Conexao.pas' {DatabaseConexao: TDataModule};
+  Database.Conexao in 'src\Database\Database.Conexao.pas' {DatabaseConexao: TDataModule},
+  View.Pessoa in 'src\View\View.Pessoa.pas' {ViewPessoa};
 
 {$R *.res}
 

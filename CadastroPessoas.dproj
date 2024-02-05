@@ -117,6 +117,10 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="src\View\View.Pessoa.pas">
+            <Form>ViewPessoa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -143,7 +147,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="4">
-                <DeployFile LocalName="Win32\Debug\CadastroPessoas.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Install\CadastroPessoas.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>CadastroPessoas.exe</RemoteName>
                         <Overwrite>true</Overwrite>

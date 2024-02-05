@@ -12,12 +12,14 @@ type
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
+    Button5: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
   private
     FPessoaController: TPessoaController;
   public
@@ -30,6 +32,8 @@ var
 implementation
 
 {$R *.dfm}
+
+uses View.Pessoa;
 
 procedure TViewPrincipal.Button1Click(Sender: TObject);
 begin
@@ -49,6 +53,18 @@ end;
 procedure TViewPrincipal.Button4Click(Sender: TObject);
 begin
   FPessoaController.Carregar;
+end;
+
+procedure TViewPrincipal.Button5Click(Sender: TObject);
+var
+  ViewPessoa: TViewPessoa;
+begin
+  ViewPessoa := TViewPessoa.create(FPessoaController);
+  try
+    ViewPessoa.ShowModal;
+  finally
+    ViewPessoa.Free;
+  end;
 end;
 
 procedure TViewPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);

@@ -2,7 +2,10 @@ unit Controller.Pessoa;
 
 interface
 
-uses Repository.Pessoa.Interfaces;
+uses
+  Repository.Pessoa.Interfaces,
+  Dto.Pessoa,
+  System.Generics.Collections;
   type
     TPessoaController = class
     Private
@@ -12,6 +15,7 @@ uses Repository.Pessoa.Interfaces;
      procedure GravarListaNoBanco;
      procedure ExcluirPorId(AId: Integer);
      procedure Carregar;
+     function GetListaPessoaMemoria: TObjectList<TPessoaDto>;
 
      constructor Create;
     end;
@@ -20,8 +24,9 @@ implementation
 
 { TPessoaController }
 
-uses Model.Pessoa, Repository.Pessoa.SqLite, Dto.Pessoa,
-  System.Generics.Collections;
+uses
+  Model.Pessoa,
+  Repository.Pessoa.SqLite;
 
 constructor TPessoaController.Create;
 begin
@@ -33,6 +38,22 @@ begin
   TPessoaModel
     .New(FRepositoryPessoa)
     .ExcluirPorId(AId);
+end;
+
+function TPessoaController.GetListaPessoaMemoria: TObjectList<TPessoaDto>;
+var
+  ListaPessoaModel: TObjectList<TPessoaModel>;
+  PessoaModel: TPessoaModel;
+  PessoaDto: TPessoaDto;
+begin
+  Result := TObjectList<TPessoaDto>.Create;
+  ListaPessoaModel := TPessoaModel.GetListaPessoa;
+  for PessoaModel in ListaPessoaModel do
+  begin
+    PessoaDto := PessoaModel.GetDadosPessoa;
+    Result.Add(PessoaDto);
+  end;
+
 end;
 
 procedure TPessoaController.GravarEmMemoria(ANome: String;

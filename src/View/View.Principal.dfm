@@ -49,4 +49,13 @@ object ViewPrincipal: TViewPrincipal
     TabOrder = 3
     OnClick = Button4Click
   end
+  object Button5: TButton
+    Left = 40
+    Top = 208
+    Width = 185
+    Height = 25
+    Caption = 'Mostrar Pessoas em memoria'
+    TabOrder = 4
+    OnClick = Button5Click
+  end
 end

@@ -16,7 +16,8 @@ type
     procedure GravarListaNoBanco;
     procedure SetRespositoryPessoa(ARepositoryPessoa: IRepositoryPessoa);
     procedure ExcluirPorId(AId: Integer);
-    Function GetPessoas: TObjectList<TPessoaDto>;
+    function GetPessoas: TObjectList<TPessoaDto>;
+    function GetDadosPessoa: TPessoaDto;
   End;
 
 implementation
