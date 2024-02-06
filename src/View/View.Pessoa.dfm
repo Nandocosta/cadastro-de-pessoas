@@ -67,6 +67,7 @@ object ViewPessoa: TViewPessoa
         Title.Font.Height = -16
         Title.Font.Name = 'Segoe UI'
         Title.Font.Style = []
+        Width = 260
         Visible = True
       end
       item
@@ -78,6 +79,7 @@ object ViewPessoa: TViewPessoa
         Title.Font.Height = -16
         Title.Font.Name = 'Segoe UI'
         Title.Font.Style = []
+        Width = 150
         Visible = True
       end
       item
@@ -89,6 +91,7 @@ object ViewPessoa: TViewPessoa
         Title.Font.Height = -16
         Title.Font.Name = 'Segoe UI'
         Title.Font.Style = []
+        Width = 110
         Visible = True
       end>
   end

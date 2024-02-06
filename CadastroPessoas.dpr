@@ -10,7 +10,11 @@ uses
   Repository.Pessoa.Interfaces in 'src\Repository\Pessoa\Repository.Pessoa.Interfaces.pas',
   Repository.Pessoa.SqLite in 'src\Repository\Pessoa\Repository.Pessoa.SqLite.pas',
   Database.Conexao in 'src\Database\Database.Conexao.pas' {DatabaseConexao: TDataModule},
-  View.Pessoa in 'src\View\View.Pessoa.pas' {ViewPessoa};
+  View.Pessoa in 'src\View\View.Pessoa.pas' {ViewPessoa},
+  Dto.QuartoHotel in 'src\Dto\QuartoHotel\Dto.QuartoHotel.pas',
+  Service.QuartoHotel in 'src\Service\QuartoHotel\Service.QuartoHotel.pas',
+  Service.QuartoHotel.Interfaces in 'src\Service\QuartoHotel\Service.QuartoHotel.Interfaces.pas',
+  View.IdPessoa in 'src\View\View.IdPessoa.pas' {ViewId};
 
 {$R *.res}
 

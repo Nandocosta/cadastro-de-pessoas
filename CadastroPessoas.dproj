@@ -121,6 +121,13 @@
             <Form>ViewPessoa</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="src\Dto\QuartoHotel\Dto.QuartoHotel.pas"/>
+        <DCCReference Include="src\Service\QuartoHotel\Service.QuartoHotel.pas"/>
+        <DCCReference Include="src\Service\QuartoHotel\Service.QuartoHotel.Interfaces.pas"/>
+        <DCCReference Include="src\View\View.IdPessoa.pas">
+            <Form>ViewId</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
