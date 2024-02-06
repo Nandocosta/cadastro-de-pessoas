@@ -3,7 +3,6 @@
 *.skincfg
 *.~*
 *.dcu
-*.exe
 *.identcache
 _history/
 modules/
