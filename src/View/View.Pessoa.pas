@@ -16,7 +16,10 @@ uses
   Vcl.ExtCtrls,
   Data.DB,
   Vcl.Grids,
-  Vcl.DBGrids, Datasnap.DBClient, Controller.Pessoa;
+  Vcl.DBGrids,
+  Datasnap.DBClient,
+  Model.Pessoa,
+  System.Generics.Collections;
 
 type
   TViewPessoa = class(TForm)
@@ -30,54 +33,44 @@ type
     ClientDataSetPessoadata_nascimento: TDateTimeField;
     ClientDataSetPessoasaldo_devedor: TFloatField;
     procedure ButtonFecharClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
   private
-    FPessoaController: TPessoaController;
-    procedure CarregarPessoas;
+    procedure CarregarPessoas(ListaPessoaModel: TObjectList<TPessoaModel>);
   public
-    { Public declarations }
-    constructor create(APessoaController: TPessoaController);
+    constructor Create(ListaPessoaModel: TObjectList<TPessoaModel>);reintroduce;
   end;
 
 implementation
 
 {$R *.dfm}
 
-uses Dto.Pessoa, System.Generics.Collections;
 
 procedure TViewPessoa.ButtonFecharClick(Sender: TObject);
 begin
   Close;
 end;
 
-procedure TViewPessoa.CarregarPessoas;
+procedure TViewPessoa.CarregarPessoas(ListaPessoaModel: TObjectList<TPessoaModel>);
 var
-  ListaPessoaDto: TObjectList<TPessoaDto>;
-  PessoaDto: TPessoaDto;
+  Pessoa: TPessoaModel;
 begin
   ClientDataSetPessoa.EmptyDataSet;
-  ListaPessoaDto := FPessoaController.GetListaPessoaMemoria;
-  for PessoaDto in ListaPessoaDto do
+
+  for Pessoa in ListaPessoaModel do
   begin
     ClientDataSetPessoa.Append;
-    ClientDataSetPessoa.FieldByName('codigo').AsInteger := PessoaDto.Id;
-    ClientDataSetPessoa.FieldByName('nome').AsString := PessoaDto.Nome;
-    ClientDataSetPessoa.FieldByName('data_nascimento').AsDateTime := PessoaDto.DataNascimento;
-    ClientDataSetPessoa.FieldByName('saldo_devedor').AsFloat := PessoaDto.SaldoDevedor;
+    ClientDataSetPessoa.FieldByName('codigo').AsInteger := Pessoa.Id;
+    ClientDataSetPessoa.FieldByName('nome').AsString := Pessoa.Nome;
+    ClientDataSetPessoa.FieldByName('data_nascimento').AsDateTime := Pessoa.DataNascimento;
+    ClientDataSetPessoa.FieldByName('saldo_devedor').AsFloat := Pessoa.SaldoDevedor;
     ClientDataSetPessoa.Post;
   end;
 
 end;
 
-constructor TViewPessoa.create(APessoaController: TPessoaController);
+constructor TViewPessoa.create(ListaPessoaModel: TObjectList<TPessoaModel>);
 begin
   inherited Create(nil);
-  FPessoaController := APessoaController;
-end;
-
-procedure TViewPessoa.FormShow(Sender: TObject);
-begin
-  CarregarPessoas;
+  CarregarPessoas(ListaPessoaModel);
 end;
 
 end.

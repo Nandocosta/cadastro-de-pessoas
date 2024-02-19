@@ -18,7 +18,7 @@ object ViewPrincipal: TViewPrincipal
     Top = 0
     Width = 716
     Height = 432
-    ActivePage = TabSheetPessoa
+    ActivePage = TabSheetQuartoHotel
     Align = alClient
     TabOrder = 0
     object TabSheetPessoa: TTabSheet
@@ -103,7 +103,7 @@ object ViewPrincipal: TViewPrincipal
         end
       end
       object ButtonMostrarPessoaMemoria: TButton
-        Left = 3
+        Left = 0
         Top = 151
         Width = 185
         Height = 25

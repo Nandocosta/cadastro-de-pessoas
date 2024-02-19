@@ -2,7 +2,7 @@ unit Service.QuartoHotel;
 
 interface
 uses
-  Dto.QuartoHotel,
+  Model.QuartoHotel,
   System.Generics.Collections,
   Service.QuartoHotel.Interfaces,
   IdHTTP,
@@ -18,9 +18,10 @@ TQuartoHotelServico = class(TInterfacedObject, IQuartoHotelServico)
     FIdHTTP: TIdHTTP;
     FIdSSLIOHandlerSocketOpenSSL: TIdSSLIOHandlerSocketOpenSSL;
   public
-    function Buscar: TObjectList<TQuartoHotelDto>;
+    function Buscar: TObjectList<TQuartoHotelModel>;
 
     constructor Create;
+    destructor Destroy;override;
 
 end;
 
@@ -31,7 +32,7 @@ uses
 
 { TQuartoHotelServico }
 
-function TQuartoHotelServico.Buscar: TObjectList<TQuartoHotelDto>;
+function TQuartoHotelServico.Buscar: TObjectList<TQuartoHotelModel>;
 var
   JsonQuartoHotel: String;
 
@@ -41,34 +42,37 @@ var
   IndexQuartoHotel: Integer;
   IndexCaracteristicas: Integer;
 
-  QuartoHotelDto: TQuartoHotelDto;
-  CaracteristicaDto: TCaracteristicaDto;
+  QuartoHotel: TQuartoHotelModel;
+  Caracteristica: TCaracteristicaModel;
 begin
-  Result := TObjectList<TQuartoHotelDto>.Create;
+  Result := TObjectList<TQuartoHotelModel>.Create;
 
   JsonQuartoHotel := FIdHTTP.Get('https://run.mocky.io/v3/c20be17a-bc5c-4736-a5e5-dbcff9591b5a');
 
   JsonArrayQuartoHotel := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(JsonQuartoHotel), 0) as TJSONArray;
-
-  for IndexQuartoHotel := 0 to Pred(JsonArrayQuartoHotel.Size) do
-  begin
-    QuartoHotelDto := TQuartoHotelDto.Create;
-    QuartoHotelDto.Codigo := JsonArrayQuartoHotel[IndexQuartoHotel].GetValue<string>('codigo', '');
-    QuartoHotelDto.Nome := JsonArrayQuartoHotel[IndexQuartoHotel].GetValue<string>('nome', '');
-    QuartoHotelDto.Preco := JsonArrayQuartoHotel[IndexQuartoHotel].GetValue<Double>('preco', 0);
-
-    JsonArrayCaracteristicas := JsonArrayQuartoHotel[IndexQuartoHotel].GetValue<TJSONArray>('caracteristicas');
-
-    for IndexCaracteristicas := 0 to Pred(JsonArrayCaracteristicas.Size) do
+  try
+    for IndexQuartoHotel := 0 to Pred(JsonArrayQuartoHotel.Count) do
     begin
-      CaracteristicaDto := TCaracteristicaDto.Create;
-      CaracteristicaDto.Id := JsonArrayCaracteristicas[IndexCaracteristicas].GetValue<Integer>('id', 0);
-      CaracteristicaDto.Nome := JsonArrayCaracteristicas[IndexCaracteristicas].GetValue<String>('nome', '');
+      QuartoHotel := TQuartoHotelModel.Create;
+      QuartoHotel.Codigo := JsonArrayQuartoHotel[IndexQuartoHotel].GetValue<string>('codigo', '');
+      QuartoHotel.Nome := JsonArrayQuartoHotel[IndexQuartoHotel].GetValue<string>('nome', '');
+      QuartoHotel.Preco := JsonArrayQuartoHotel[IndexQuartoHotel].GetValue<Double>('preco', 0);
 
-      QuartoHotelDto.Caracteristicas.Add(CaracteristicaDto);
+      JsonArrayCaracteristicas := JsonArrayQuartoHotel[IndexQuartoHotel].GetValue<TJSONArray>('caracteristicas');
+
+      for IndexCaracteristicas := 0 to Pred(JsonArrayCaracteristicas.Count) do
+      begin
+        Caracteristica := TCaracteristicaModel.Create;
+        Caracteristica.Id := JsonArrayCaracteristicas[IndexCaracteristicas].GetValue<Integer>('id', 0);
+        Caracteristica.Nome := JsonArrayCaracteristicas[IndexCaracteristicas].GetValue<String>('nome', '');
+
+        QuartoHotel.Caracteristicas.Add(Caracteristica);
+      end;
+
+      Result.Add(QuartoHotel);
     end;
-
-    Result.Add(QuartoHotelDto);
+  finally
+    JsonArrayQuartoHotel.Free;
   end;
 end;
 
@@ -81,6 +85,13 @@ begin
   FIdHttp.IOHandler := FIdSSLIOHandlerSocketOpenSSL;
   FIdHttp.Request.ContentType := 'application/json';
   FIdHttp.HandleRedirects := True;
+end;
+
+destructor TQuartoHotelServico.Destroy;
+begin
+  FIdSSLIOHandlerSocketOpenSSL.Free;
+  FIdHttp.Free;
+  inherited;
 end;
 
 end.

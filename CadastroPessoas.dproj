@@ -4,7 +4,7 @@
         <ProjectVersion>19.5</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -97,21 +97,19 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="src\Model\Pessoa\Model.Pessoa.pas"/>
         <DCCReference Include="src\View\View.Principal.pas">
             <Form>ViewPrincipal</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="src\Dto\Pessoa\Dto.Pessoa.pas"/>
-        <DCCReference Include="src\Model\Pessoa\Model.Pessoa.Interfaces.pas"/>
-        <DCCReference Include="src\Controller\Pessoa\Controller.Pessoa.pas"/>
-        <DCCReference Include="src\Repository\Pessoa\Repository.Pessoa.Interfaces.pas"/>
-        <DCCReference Include="src\Repository\Pessoa\Repository.Pessoa.SqLite.pas"/>
+        <DCCReference Include="src\Model\Model.Pessoa.pas"/>
+        <DCCReference Include="src\Dao\Dao.Pessoa.pas"/>
         <DCCReference Include="src\Database\Database.Conexao.pas">
             <Form>DatabaseConexao</Form>
             <FormType>dfm</FormType>
@@ -121,7 +119,7 @@
             <Form>ViewPessoa</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="src\Dto\QuartoHotel\Dto.QuartoHotel.pas"/>
+        <DCCReference Include="src\Model\Model.QuartoHotel.pas"/>
         <DCCReference Include="src\Service\QuartoHotel\Service.QuartoHotel.pas"/>
         <DCCReference Include="src\Service\QuartoHotel\Service.QuartoHotel.Interfaces.pas"/>
         <DCCReference Include="src\View\View.IdPessoa.pas">
